@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Result</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Resume Summary</h1>
+
+        <!-- Display Profile Picture if exists -->
+        {% if profile_picture %}
+            <img src="{{ profile_picture.url }}" alt="Profile Picture" class="profile-img">
+        {% endif %}
+
+        <!-- Display resume details in a table format -->
+        <table>
+            <tr>
+                <th>Section</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td><strong>Full Name</strong></td>
+                <td>{{ form_data.name }}</td>
+            </tr>
+            <tr>
+                <td><strong>Contact Information</strong></td>
+                <td>{{ form_data.contact_info }}</td>
+            </tr>
+            <tr>
+                <td><strong>Professional Summary</strong></td>
+                <td>{{ form_data.professional_summary }}</td>
+            </tr>
+            <tr>
+                <td><strong>Skills</strong></td>
+                <td>{{ form_data.skills|linebreaks }}</td>
+            </tr>
+            <tr>
+                <td><strong>Education</strong></td>
+                <td>{{ form_data.education|linebreaks }}</td>
+            </tr>
+            <tr>
+                <td><strong>Experience</strong></td>
+                <td>{{ form_data.experience|linebreaks }}</td>
+            </tr>
+            <tr>
+                <td><strong>Projects (optional)</strong></td>
+                <td>{{ form_data.projects|linebreaks }}</td>
+            </tr>
+            <tr>
+                <td><strong>Certifications & Awards</strong></td>
+                <td>{{ form_data.certifications_awards|linebreaks }}</td>
+            </tr>
+            <tr>
+                <td><strong>Extracurricular/Volunteer (optional)</strong></td>
+                <td>{{ form_data.extracurricular|linebreaks }}</td>
+            </tr>
+        </table>
+
+        <!-- Display the generated professional summary -->
+        <h2>Professional Summary</h2>
+        <div class="resume-result">
+            <p>{{ resume_text|linebreaks }}</p>
+        </div>
+
+        <!-- Form to download PDF -->
+        <form action="{% url 'download_pdf' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="name" value="{{ form_data.name }}">
+            <input type="hidden" name="experience" value="{{ form_data.experience }}">
+            <input type="hidden" name="skills" value="{{ form_data.skills }}">
+            <input type="hidden" name="education" value="{{ form_data.education }}">
+            <input type="hidden" name="resume_text" value="{{ resume_text|escape }}">
+            <button type="submit" class="download-btn">📄 Download as PDF</button>
+        </form>
+
+        <!-- Link to go back and build another resume -->
+        <a href="/" style="display: block; text-align: center; margin-top: 20px; color: #4CAF50;">⬅️ Build Another Resume</a>
+    </div>
+</body>
+</html>

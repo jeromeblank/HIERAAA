@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/resume-builder/">Resume Builder</a>
+        
+    </div>
+
+    <!-- Landing Page Content -->
+    <div class="container">
+        <h1>Welcome to Resume Builder</h1>
+        <p>Create a professional resume in minutes with our easy-to-use resume builder. Just fill in the details, and we'll generate a customized resume for you!</p>
+        <a href="/resume-builder/" class="cta-button">Start Building Your Resume</a>
+    </div>
+    <div class="job-search-section">
+        <h2>🔎 Find Jobs That You Want</h2>
+        <form action="/job-search/" method="get">
+            <input type="text" name="query" placeholder="Job title, keyword, or company" required>
+            <input type="text" name="location" placeholder="Location (optional)">
+            <button type="submit">Search Jobs</button>
+        </form>
+    </div>
+</body>
+</html>
