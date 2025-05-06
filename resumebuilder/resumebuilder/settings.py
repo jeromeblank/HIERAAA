@@ -60,6 +60,7 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login/'
 
 
 MIDDLEWARE = [
@@ -162,5 +163,5 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-# Send emails to the console (for development)
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -7,6 +7,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib import colors
+from django.contrib.auth.decorators import login_required
 import re
 import requests
 import google.generativeai as genai
@@ -153,7 +154,7 @@ def landing_page(request):
     return render(request, 'landing_page.html')
 
 
-
+@login_required
 def job_search(request):
     query = request.GET.get('query')
     location = request.GET.get('location', '')
