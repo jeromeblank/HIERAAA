@@ -14,11 +14,12 @@
     <div class="navbar">
         <a href="/">Home</a>
         <a href="/resume-builder/">Resume Builder</a>
+        
 
         {% if user.is_authenticated %}
             <span>Welcome, {{ user.username }}!</span>
             <a href="{% url 'account_logout' %}">Logout</a>
-        {% else %}
+        {% else %}z
             <a href="{% url 'account_login' %}">Login</a>
             <a href="{% url 'account_signup' %}">Sign Up</a>
         {% endif %}
