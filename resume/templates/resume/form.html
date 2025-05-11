@@ -1,0 +1,341 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Builder</title>
+    <link rel="icon" href="{% static 'images/logo1.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Lexend:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+
+        .container {
+            background: #F5EEDD;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            margin-top: 60px;
+            box-shadow: rgba(191, 44, 196, 0.25) 0px 50px 100px -20px, rgba(186, 27, 192, 0.3) 0px 30px 60px -30px, rgba(210, 16, 165, 0.35) 0px -2px 6px 0px inset;
+            width: 90%;
+            width: 90%;
+            max-width: 600px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+
+        h1 {
+            font-family: 'Lexend', sans-serif;
+            font-size: 2rem;
+            color: #fb2c6a;
+            padding-bottom: 5%;
+            text-align: center;
+        }
+
+
+        form p {
+            margin-bottom: 1.25rem;
+            font-family: 'National Park', sans-serif;
+        }
+
+
+        label {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            display: block;
+            color: #c73580;
+            transition: all 0.3s ease;
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="date"],
+        textarea,
+        select {
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #cccccc;
+            width: 90%;
+            background-color: #f9f9f9;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+
+        .input-container {
+            position: relative;
+            margin-bottom: 5%;
+        }
+
+
+        .input-container input:focus+label,
+        .input-container input:not(:placeholder-shown)+label {
+            top: -10px;
+            left: 10px;
+            font-size: 14px;
+            color: #912aa1;
+        }
+
+
+        .input-container input:not(:focus):not(:placeholder-shown)+label {
+            color: #888888;
+        }
+
+
+        input:focus {
+            outline: none;
+            border: 1px solid #D91656;
+        }
+
+
+        button[type="submit"] {
+            background: #005f73;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+
+        button[type="submit"]:hover {
+            background: #0a9396;
+            transform: translateY(-2px);
+        }
+
+
+        .error {
+            color: #d9534f;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+
+            to {
+                opacity: 1;
+            }
+        }
+
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+
+        .floating {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 60px;
+            background: #3F5EFB;
+            background: linear-gradient(112deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 73%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .floating:hover {
+
+
+            background: #DB1E9A;
+            background: linear-gradient(75deg, rgba(219, 30, 154, 1) 0%, rgba(143, 51, 217, 1) 73%);
+            transform: scale(1.1);
+            backdrop-filter: blur(10px);
+        }
+
+
+        .floating i {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+
+        .floating:hover i {
+            transform: rotate(180deg);
+        }
+
+
+        .animated-gradient-text {
+            background: #3F5EFB;
+            background: linear-gradient(270deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            animation: gradientMove 6s ease-in-out infinite;
+        }
+
+
+
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="container">
+        <h1><i class="fas fa-file-alt"></i> <span class="animated-gradient-text">Build Your Resume</span></h1>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-field">
+                <div class="input-container">
+                    {% if field.field.widget.input_type == "file" %}
+                    <input type="file" id="{{ field.id_for_label }}" name="{{ field.name }}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {% else %}
+                    <input type="text" id="{{ field.id_for_label }}" name="{{ field.name }}" placeholder=" "
+                        value="{{ field.value|default:'' }}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {% endif %}
+                </div>
+                {% if field.errors %}
+                <div class="errors">
+                    {% for error in field.errors %}
+                    <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit"><i class="fas fa-download"></i> Generate Resume</button>
+        </form>
+    </div>
+    <div class="floating" role="button" aria-label="Scroll to top" tabindex="0" onclick="scrollToTop()">
+        <i class="fa-solid fa-caret-up"></i>
+    </div>
+
+
+    <script>
+        const inputs = document.querySelectorAll('input');
+
+
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.nextElementSibling.classList.add('active');
+            });
+
+
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    input.nextElementSibling.classList.remove('active');
+                }
+            });
+        });
+
+
+        const floatingButton = document.querySelector('.floating');
+
+
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 100) {
+                floatingButton.style.display = 'flex';
+            } else {
+                floatingButton.style.display = 'none';
+            }
+        });
+
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+
+        floatingButton.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                scrollToTop();
+            }
+        });
+    </script>
+</body>
+
+
+</html>

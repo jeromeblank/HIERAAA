@@ -1,0 +1,372 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ruler: 16px;
+      --color-red: #AE1100;
+      --color-bg: #ae83d1;
+      --color-shadow: #BABECC;
+      --color-white: #FFF;
+      --pink: #db1e9a;
+      --lavender: #612295;
+      --light-pink: #ffd7f1;
+      --yellow: #ffde59;
+      --bg: #db1e9a;
+      --black: #000;
+    }
+
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: -0.2px;
+      font-size: var(--ruler);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 20%;
+      position: relative;
+    }
+
+
+    .center-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      z-index: 1;
+      position: relative;
+    }
+
+
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+    }
+
+
+    .rotating-text {
+      font-weight: 600;
+      font-size: 28px;
+      margin-bottom: 20px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      height: 60px;
+      margin-left: 40px;
+    }
+
+
+    .static-part {
+      color: var(--black);
+    }
+
+
+    .dynamic-part {
+      position: relative;
+      height: 30px;
+      margin-left: 40px;
+    }
+
+
+    .word {
+      position: absolute;
+      display: flex;
+      opacity: 0;
+      left: 0;
+      top: 0;
+    }
+
+
+    .letter {
+      display: inline-block;
+      transform-origin: center center 25px;
+      background: linear-gradient(45deg, var(--pink), var(--lavender), var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+
+    .letter.out {
+      transform: rotateX(90deg);
+      transition: 0.32s cubic-bezier(0.6, 0, 0.7, 0.2);
+    }
+
+
+    .letter.in {
+      transition: 0.38s ease;
+    }
+
+
+    .letter.behind {
+      transform: rotateX(-90deg);
+    }
+
+
+    form {
+      width: calc(var(--ruler) * 20);
+      padding: var(--ruler);
+    }
+
+
+    label {
+      display: block;
+      margin-bottom: calc(var(--ruler) * 1.5);
+      width: 100%;
+    }
+
+
+    input:not([type="checkbox"]) {
+      width: 100%;
+      padding: var(--ruler);
+      border-radius: calc(var(--ruler) * 20);
+      border: none;
+      outline: none;
+      box-shadow: inset 2px 2px 5px var(--color-shadow), inset -5px -5px 10px var(--color-white);
+      background-color: var(--light-pink);
+      transition: all 0.2s ease-in-out;
+      box-sizing: border-box;
+    }
+
+
+    input:focus:not([type="checkbox"]) {
+      box-shadow: inset 1px 1px 2px var(--color-shadow), inset -1px -1px 2px var(--color-white);
+    }
+
+
+    button {
+      width: 100%;
+      padding: var(--ruler);
+      border-radius: calc(var(--ruler) * 20);
+      border: none;
+      font-weight: 600;
+      font-size: var(--ruler);
+      color: var(--pink);
+      background-color: var(--yellow);
+      box-shadow: -5px -5px 20px var(--color-white), 5px 5px 20px var(--color-shadow);
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      margin-top: var(--ruler);
+    }
+
+
+    button:hover {
+      box-shadow: -2px -2px 5px var(--color-white), 2px 2px 5px var(--color-shadow);
+    }
+
+
+    button:active {
+      box-shadow: inset 1px 1px 2px var(--color-shadow), inset -1px -1px 2px var(--color-white);
+    }
+
+
+    .github-login {
+      width: 100%;
+      padding: var(--ruler);
+      border-radius: calc(var(--ruler) * 20);
+      border: none;
+      font-weight: 600;
+      font-size: var(--ruler);
+      color: var(--pink);
+      background-color: var(--yellow);
+      box-shadow: -5px -5px 20px var(--color-white), 5px 5px 20px var(--color-shadow);
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      margin-top: var(--ruler);
+    }
+
+
+    .github-login:hover {
+      box-shadow: -2px -2px 5px var(--color-white), 2px 2px 5px var(--color-shadow);
+    }
+
+
+    .github-login:active {
+      box-shadow: inset 1px 1px 2px var(--color-shadow), inset -1px -1px 2px var(--color-white);
+    }
+
+
+    .signup-text {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--lavender);
+      margin-left: 35px;
+    }
+
+
+    .logo-wrapper {
+  position: absolute;
+  left: 65%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* Also center horizontally */
+  z-index: 1;
+}
+
+
+.logo-wrapper img {
+  width: 500px;
+  height: auto;
+  opacity: 0;
+  transform: scale(0.8);
+  animation: fadeInZoom 1.2s ease-out forwards;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+
+/* Animation keyframes */
+@keyframes fadeInZoom {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+
+  <!-- Animated SVG Background -->
+  <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <radialGradient id="Gradient1" cx="50%" cy="50%" fx="10%" fy="50%" r=".5">
+        <animate attributeName="fx" dur="34s" values="0%;10%;0%" repeatCount="indefinite" />
+        <stop offset="0%" stop-color="#ae83d1" />
+        <stop offset="100%" stop-color="#ae83d100" />
+      </radialGradient>
+      <radialGradient id="Gradient2" cx="50%" cy="50%" fx="10%" fy="50%" r=".5">
+        <animate attributeName="fx" dur="23.5s" values="0%;10%;0%" repeatCount="indefinite" />
+        <stop offset="0%" stop-color="#db1e9a" />
+        <stop offset="100%" stop-color="#db1e9a00" />
+      </radialGradient>
+      <radialGradient id="Gradient3" cx="50%" cy="50%" fx="50%" fy="50%" r=".5">
+        <animate attributeName="fx" dur="21.5s" values="0%;10%;0%" repeatCount="indefinite" />
+        <stop offset="0%" stop-color="#ffde59" />
+        <stop offset="100%" stop-color="#ffde5900" />
+      </radialGradient>
+    </defs>
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#Gradient1)">
+      <animate attributeName="x" dur="20s" values="25%;0%;25%" repeatCount="indefinite" />
+      <animate attributeName="y" dur="21s" values="0%;25%;0%" repeatCount="indefinite" />
+      <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="17s" repeatCount="indefinite" />
+    </rect>
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#Gradient2)">
+      <animate attributeName="x" dur="23s" values="-25%;0%;-25%" repeatCount="indefinite" />
+      <animate attributeName="y" dur="24s" values="0%;50%;0%" repeatCount="indefinite" />
+      <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="18s" repeatCount="indefinite" />
+    </rect>
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#Gradient3)">
+      <animate attributeName="x" dur="25s" values="0%;25%;0%" repeatCount="indefinite" />
+      <animate attributeName="y" dur="26s" values="0%;25%;0%" repeatCount="indefinite" />
+      <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="19s" repeatCount="indefinite" />
+    </rect>
+  </svg>
+
+
+  <!-- Centered Content -->
+  <div class="center-wrapper">
+    <!-- Animated Header -->
+    <div class="rotating-text">
+      <div class="static-part">Welcome back to</div>
+      <div class="dynamic-part">
+        <span class="word">Hirerayah</span>
+        <span class="word">Your Future</span>
+        <span class="word">Possibility</span>
+      </div>
+    </div>
+
+
+    <!-- Login Form -->
+    <form method="post" action="{% url 'account_login' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Login</button>
+    </form>
+
+
+    <form action="{% provider_login_url 'github' %}" method="get">
+      <button type="submit" class="github-login">Login with GitHub</button>
+    </form>
+
+
+    <p class="signup-text">
+      Don't have an account?
+      <a href="{% url 'account_signup' %}">Sign up</a>
+    </p>
+  </div>
+
+
+  <div class="logo-wrapper">
+  <img src="{% static 'images/hirerayah-logo.png' %}" alt="Hirerayah Logo" />
+</div>
+
+
+  <!-- Animation Script -->
+  <script>
+    const words = document.querySelectorAll(".word");
+    words.forEach(word => {
+      const letters = word.textContent.split("");
+      word.textContent = "";
+      letters.forEach(letter => {
+        const span = document.createElement("span");
+        span.textContent = letter;
+        span.className = "letter";
+        word.append(span);
+      });
+    });
+
+
+    let currentWordIndex = 0;
+    let maxWordIndex = words.length - 1;
+    words[currentWordIndex].style.opacity = "1";
+
+
+    function rotateText() {
+      const currentWord = words[currentWordIndex];
+      const nextWord = currentWordIndex === maxWordIndex ? words[0] : words[currentWordIndex + 1];
+
+
+      Array.from(currentWord.children).forEach((letter, i) => {
+        setTimeout(() => {
+          letter.className = "letter out";
+        }, i * 80);
+      });
+
+
+      nextWord.style.opacity = "1";
+      Array.from(nextWord.children).forEach((letter, i) => {
+        letter.className = "letter behind";
+        setTimeout(() => {
+          letter.className = "letter in";
+        }, 340 + i * 80);
+      });
+
+
+      currentWordIndex = currentWordIndex === maxWordIndex ? 0 : currentWordIndex + 1;
+    }
+
+
+    rotateText();
+    setInterval(rotateText, 4000);
+  </script>
+</body>
+</html>

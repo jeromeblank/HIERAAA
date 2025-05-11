@@ -1,0 +1,292 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Result</title>
+    <link rel="icon" href="{% static 'images/logo1.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Lexend:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #F5EEDD;
+            border-radius: 12px;
+            box-shadow: rgba(191, 44, 196, 0.25) 0px 50px 100px -20px, rgba(186, 27, 192, 0.3) 0px 30px 60px -30px, rgba(210, 16, 165, 0.35) 0px -2px 6px 0px inset;
+        }
+
+
+        h1,
+        h2 {
+            text-align: center;
+            color: #fb2c6a;
+            font-family: 'Lexend', sans-serif;
+        }
+
+
+        .profile-img {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 150px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+
+        th,
+        td {
+            padding: 16px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            font-family: 'Lexend', sans-serif;
+            color: #912aa1;
+            border-bottom: 2px solid #912aa1;
+        }
+
+
+        td {
+            background-color: #ffffff;
+            color: #2A4759;
+            border-bottom: 1px solid #c73580;
+        }
+
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+
+        .resume-result {
+            padding: 20px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #005f73;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+
+        .download-btn:hover {
+            background-color: #2563eb;
+        }
+
+
+        .back-link {
+            display: block;
+            margin-top: 25px;
+            text-align: center;
+            color: #fb2c6a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .floating {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 60px;
+            background: #3F5EFB;
+            background: linear-gradient(112deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 73%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .floating:hover {
+
+
+            background: #DB1E9A;
+            background: linear-gradient(75deg, rgba(219, 30, 154, 1) 0%, rgba(143, 51, 217, 1) 73%);
+            transform: scale(1.1);
+            backdrop-filter: blur(10px);
+        }
+
+
+        .floating i {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+
+        .floating:hover i {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="container">
+        <h1>🎓 Resume Summary</h1>
+
+
+        {% if profile_picture %}
+        <img src="{{ profile_picture.url }}" alt="Profile Picture" class="profile-img">
+        {% endif %}
+
+
+        <table>
+            <thead>
+                <tr>
+                    <th>SECTION</th>
+                    <th>DETAILS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Full Name</strong></td>
+                    <td>{{ form_data.name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Contact Information</strong></td>
+                    <td>
+                        {{ form_data.contact_info|linebreaksbr }}<br>
+                        {{ form_data.email|linebreaksbr }}<br>
+                        {{ form_data.phone|linebreaksbr }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Skills</strong></td>
+                    <td>{{ form_data.skills }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Education</strong></td>
+                    <td>
+                        {{ form_data.degree|linebreaksbr }}<br>
+                        {{ form_data.education_dates|linebreaksbr }}<br>
+                        {{ form_data.university|linebreaksbr }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Experience</strong></td>
+                    <td>{{ form_data.job_title}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Projects</strong></td>
+                    <td>{{ form_data.project_title}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Certifications & Awards</strong></td>
+                    <td>{{ form_data.certification_name}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Extracurricular/Volunteer</strong></td>
+                    <td>{{ form_data.extracurricular}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <h2>🔍 Professional Summary</h2>
+        <div class="resume-result">
+            <p>{{ resume_text|linebreaks }}</p>
+        </div>
+
+
+        <form action="{% url 'download_pdf' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="name" value="{{ form_data.name }}">
+            <input type="hidden" name="experience" value="{{ form_data.experience }}">
+            <input type="hidden" name="skills" value="{{ form_data.skills }}">
+            <input type="hidden" name="education" value="{{ form_data.education }}">
+            <input type="hidden" name="resume_text" value="{{ resume_text|escape }}">
+            <button type="submit" class="download-btn">📄 Download as PDF</button>
+        </form>
+
+
+        <a href="/" class="back-link">⬅️ Build Another Resume</a>
+    </div>
+    <div class="floating" role="button" aria-label="Scroll to top" tabindex="0" onclick="scrollToTop()">
+        <i class="fa-solid fa-caret-up"></i>
+    </div>
+    <script>
+        const floatingButton = document.querySelector('.floating');
+
+
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 100) {
+                floatingButton.style.display = 'flex';
+            } else {
+                floatingButton.style.display = 'none';
+            }
+        });
+
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+
+        floatingButton.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                scrollToTop();
+            }
+        });
+    </script>
+</body>
+
+
+</html>
+
+

@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Job Search Results</title>
+    <link rel="icon" href="{% static 'images/logo1.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend:wght@100..900&family=National+Park:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            padding: 20px;
+            margin: 0;
+        }
+
+
+        h1 {
+            color: #fb2c6a;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background: #F5EEDD;
+        }
+
+
+        .card {
+            background: #dff5e3;
+            border-left: 5px solid #D91656;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+
+        .title {
+            font-weight: bold;
+            color: #c73580;
+            font-family: 'Inter', sans-serif;
+        }
+
+
+        .location {
+            font-style: italic;
+            color: #912aa1;
+            margin: 4px 0;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+
+        .desc {
+            color: #444;
+            font-size: 15px;
+        }
+
+
+        .btn {
+            font-family: 'Noto Sans', sans-serif;
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 12px;
+            background: #db2662;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+
+        .btn:hover {
+            background: #912aa1;
+        }
+
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: #912aa1;
+            text-decoration: none;
+            font-family: 'National Park', sans-serif;
+        }
+
+
+        .floating {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 60px;
+            background: #3F5EFB;
+            background: linear-gradient(112deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 73%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .floating:hover {
+
+
+            background: #DB1E9A;
+            background: linear-gradient(75deg, rgba(219, 30, 154, 1) 0%, rgba(143, 51, 217, 1) 73%);
+            transform: scale(1.1);
+            backdrop-filter: blur(10px);
+        }
+
+
+        .floating i {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+
+        .floating:hover i {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+
+<body>
+    <h1>Results for "{{ query }}"</h1>
+
+
+    <div class="container">
+        {% for job in jobs %}
+        <div class="card">
+            <div class="title">{{ job.job_title }}</div>
+            <div>{{ job.employer_name }}</div>
+            <div class="location">{{ job.job_city }}, {{ job.job_country }}</div>
+            <p class="desc">{{ job.job_description|truncatewords:25 }}</p>
+            <a href="{{ job.job_apply_link }}" class="btn" target="_blank">APPLY</a>
+        </div>
+        {% empty %}
+        <p>No jobs found.</p>
+        {% endfor %}
+
+
+        <a href="/" class="back-link">⬅️ Back to Home</a>
+    </div>
+
+
+    <div class="floating" role="button" aria-label="Scroll to top" tabindex="0" onclick="scrollToTop()">
+        <i class="fa-solid fa-caret-up"></i>
+    </div>
+
+
+    <script>
+        const floatingButton = document.querySelector('.floating');
+
+
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 100) {
+                floatingButton.style.display = 'flex';
+            } else {
+                floatingButton.style.display = 'none';
+            }
+        });
+
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+
+        floatingButton.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                scrollToTop();
+            }
+        });
+    </script>
+</body>
+
+
+</html>

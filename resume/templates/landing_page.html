@@ -1,0 +1,803 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hirerayah</title>
+    <link rel="icon" href="{% static 'images/logo1.png' %}" type="image/png">
+    <!-- Google Fonts for Navbar only -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend:wght@100..900&family=National+Park:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+
+        .navbar {
+            font-family: 'Inter', 'Noto Sans', sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 50px;
+            background: #EEAECA;
+            background: linear-gradient(159deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 60px;
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(60% - 100px);
+            z-index: 1000;
+        }
+
+
+        .logo img {
+            height: 35px;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+
+        .nav-links a,
+        .nav-links span {
+            text-decoration: none;
+            color: #fb2c6a;
+            font-weight: bold;
+            font-size: 16px;
+            transition: transform 0.3s ease, color 0.4s ease;
+        }
+
+
+        .nav-links a:hover,
+        .nav-links span:hover {
+            transform: scale(1.05);
+            color: #6e1375;
+        }
+
+
+        body.dark-mode .navbar {
+            background: #3F5EFB;
+            background: linear-gradient(112deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 73%);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
+        }
+
+
+        body.dark-mode .container {
+            background: #2A4759;
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
+        }
+
+
+        body.dark-mode .nav-links a,
+        body.dark-mode .nav-links span {
+            text-decoration: none;
+            color: #eaeaea;
+            font-weight: bold;
+            font-size: 16px;
+            transition: transform 0.3s ease, color 0.4s ease;
+        }
+
+
+        body.dark-mode .nav-links a:hover,
+        body.dark-mode .nav-links span:hover {
+            color: #7f0c88;
+        }
+
+
+
+
+        body.dark-mode h1,
+        body.dark-mode label {
+            color: #F1EFEC;
+        }
+
+
+        body.dark-mode input:focus,
+        body.dark-mode textarea:focus,
+        body.dark-mode select:focus {
+            box-shadow: 0 0 0 4px rgba(100, 149, 237, 0.2);
+        }
+
+
+        .container {
+            display: flex;
+            align-items: center;
+            padding: 190px 50px 100px;
+            position: relative;
+        }
+
+
+        .text-section {
+            margin-left: 5%;
+            margin-right: 5%;
+            width: 50%;
+        }
+
+
+        .text-section h1 {
+            font-family: 'Lexend', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+
+
+        .text-section p {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 1.1rem;
+            color: #555;
+            padding-bottom: 25px;
+        }
+
+
+        body.dark-mode .text-section p {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 1.1rem;
+            color: #DFD0B8;
+            padding-bottom: 25px;
+        }
+
+
+        .cta-button {
+            position: relative;
+            padding: 12px 25px;
+            background-color: #7C4585;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            overflow: hidden;
+            display: inline-block;
+            z-index: 1;
+            transition: color 0.4s ease;
+        }
+
+
+        .cta-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: #ea4979;
+            z-index: -1;
+            transition: left 0.4s ease;
+        }
+
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+
+        .cta-button:hover {
+            color: #f1faee;
+        }
+
+
+        body.dark-mode .cta-button {
+            background-color: #fb2c6a;
+        }
+
+
+        body.dark-mode .cta-button::before {
+            background-color: #7F55B1;
+        }
+
+
+        .hero-image {
+            max-width: 40%;
+        }
+
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+
+        .job-search-section {
+            position: relative;
+            padding: 200px 20px;
+            background: #F5EEDD;
+            overflow: hidden;
+        }
+
+
+        body.dark-mode .job-search-section {
+            background: #e6a8a4;
+        }
+
+
+        .job-search-section h2 {
+            font-size: 1.8rem;
+        }
+
+
+        .job-search-section form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+
+        .job-search-section form input[type="text"] {
+            width: 200px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+
+        .job-search-section form button {
+            padding: 12px 20px;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+
+        .job-search-section p {
+            padding-bottom: 20px !important;
+        }
+
+
+        .job-search-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+
+        .job-search-image img {
+            width: 100%;
+            max-width: 400px;
+        }
+
+
+        .job-search-image {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            justify-content: flex-start;
+            width: auto;
+            max-width: 400px;
+            height: auto;
+            padding-left: 13%;
+        }
+
+
+        .job-search-form {
+            padding-left: 32%;
+        }
+
+
+        .job-search-form h2 {
+            font-size: 1.8rem;
+            text-align: left;
+        }
+
+
+        .job-search-form form {
+            display: flex;
+            gap: 10px;
+            background: #2A4759;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+
+        .footer {
+            font-family: 'Inter', 'Noto Sans', sans-serif;
+            background-color: #FFFECE;
+            color: #333;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            font-size: 0.95rem;
+        }
+
+
+        .footer a {
+            color: #2a2afc;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+
+        .pull-switch {
+            position: absolute;
+            left: 15%;
+            width: 30px;
+            height: 160px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            z-index: 1000;
+            user-select: none;
+        }
+
+
+        .pull-switch .knob {
+            position: fixed;
+            bottom: -13px;
+            width: 26px;
+            height: 26px;
+            background: radial-gradient(circle at 30% 30%, #f4c542, #c99000);
+            border: 2px solid #b07f00;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+            transition: transform 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+
+        .pull-switch:hover .knob {
+            transform: scale(1.05);
+        }
+
+
+        .pull-switch.pulled .knob {
+            transform: translateY(5px);
+        }
+
+
+        @keyframes drop {
+            0% {
+                transform: translateY(-300px) rotate(0deg);
+                opacity: 0;
+            }
+
+
+            20% {
+                transform: translateY(100px) rotate(10deg);
+                opacity: 1;
+            }
+
+
+            40% {
+                transform: translateY(-50px) rotate(-10deg);
+            }
+
+
+            60% {
+                transform: translateY(30px) rotate(5deg);
+            }
+
+
+            75% {
+                transform: translateY(-15px) rotate(-3deg);
+            }
+
+
+            85% {
+                transform: translateY(5px) rotate(1deg);
+            }
+
+
+            95% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+
+        @keyframes sway {
+            0% {
+                transform: rotate(0deg);
+            }
+
+
+            50% {
+                transform: rotate(4deg);
+            }
+
+
+            100% {
+                transform: rotate(-4deg);
+            }
+        }
+
+
+        .pull-switch .cord {
+            width: 3px;
+            height: 400px;
+            background: #F7374F;
+            position: relative;
+            transform-origin: top center;
+            display: flex;
+            justify-content: center;
+            animation: drop 2s ease-out forwards, sway 1.5s ease-in-out infinite alternate;
+            animation-delay: 0s, 2s;
+        }
+
+
+        body.dark-mode .pull-switch .cord {
+            background: #79c5ad;
+        }
+
+
+        .job-search-title {
+            font-family: 'Lexend', sans-serif;
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2a2afc;
+        }
+
+
+        body.dark-mode .job-search-title {
+            color: #FCF259;
+        }
+
+
+        .job-search-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 12%;
+            text-align: left;
+            line-height: 1.5;
+        }
+
+
+        .job-search-try {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 11px;
+            color: #555;
+            margin-right: 10%;
+        }
+
+
+        .job-search-inputs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #2A4759;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+
+        .job-search-inputs input[type="text"] {
+            width: 200px;
+            padding: 12px;
+            border: 1px solid #2A4759;
+            border-radius: 6px;
+        }
+
+
+        .job-search-inputs button {
+            padding: 12px 20px;
+            background-color: #b153c0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+
+        .job-search-section button:hover {
+            background-color: #fb2c6a;
+            transform: scale(1.05);
+        }
+
+
+        body.dark-mode .job-search-inputs button {
+            padding: 12px 20px;
+            background-color: #fb2c6a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+
+        body.dark-mode .job-search-section button:hover {
+            background-color: #b153c0;
+            transform: scale(1.05);
+        }
+
+
+        .cursor {
+            display: inline-block;
+            color: #2a2afc;
+            animation: blink 0.7s infinite;
+            font-weight: bold;
+        }
+
+
+        body.dark-mode .cursor {
+            color: #FCF259;
+        }
+
+
+        @keyframes blink {
+
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+
+        .animated-gradient-text {
+            background: linear-gradient(90deg, rgba(131, 58, 180, 1), rgba(253, 29, 29, 1), rgba(252, 176, 69, 1));
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 6s ease-in-out infinite;
+        }
+
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo3.png' %}" alt="Logo">
+        </div>
+        <div class="nav-links">
+            <a href="/resume-builder/">Resume Builder</a>
+
+
+            {% if user.is_authenticated %}
+            <span>Welcome, {{ user.username }}!</span>
+            <a href="{% url 'account_logout' %}">Logout</a>
+            {% else %}
+            <a href="{% url 'account_login' %}">Login</a>
+            <a href="{% url 'account_signup' %}">Sign Up</a>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="pull-switch" id="theme-toggle">
+        <div class="cord">
+            <div class="knob"></div>
+        </div>
+    </div>
+
+
+    <!-- Landing Page Content -->
+    <div class="container">
+        <div class="text-section">
+            <h1>Welcome to <span class="animated-gradient-text">Hirerayah</span></h1>
+            <p>Create a professional resume in minutes with our easy-to-use resume builder. Just fill in the details,
+                and we'll generate a customized resume for you!</p>
+            <a href="/resume-builder/" class="cta-button">Start Building Your Resume</a>
+        </div>
+        <div class="hero-image">
+            <img src="{% static 'images/logo2.png' %}" alt="Hero">
+        </div>
+    </div>
+
+
+    <!-- Job Search Section -->
+    <div class="job-search-section">
+        <div class="job-search-wrapper">
+            <div class="job-search-image">
+                <img src="{% static 'images/findjob.png' %}" alt="Find Job Image">
+            </div>
+            <div class="job-search-form">
+                <h2 class="job-search-title"><span id="typing-text"></span><span class="cursor">|</span></h2>
+                <p class="job-search-description">Discover roles that match your skills and passion.<br>Start your next
+                    career move with confidence.</p>
+                <form action="/job-search/" method="get" class="job-search-inputs">
+                    <input type="text" name="query" placeholder="Job title, keyword, or company" required>
+                    <input type="text" name="location" placeholder="Location (optional)">
+                    <button type="submit">Search Jobs</button>
+                </form>
+                <p class="job-search-try">Try DevOps Engineer, Information Security Analyst, Full-Stack Developer etc.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Hirerayah. All rights reserved.</p>
+            <p><a href="/privacy-policy/">Privacy Policy</a> | <a href="/contact/">Contact Us</a></p>
+        </div>
+    </footer>
+
+
+    <script>
+        const toggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme');
+
+
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+
+
+            toggle.classList.add('pulled');
+            setTimeout(() => toggle.classList.remove('pulled'), 300);
+        });
+
+
+        let hasScrolledToJobSearch = false;
+
+
+        function scrollToJobSearch() {
+            const jobSection = document.querySelector('.job-search-section');
+            if (jobSection) {
+                jobSection.scrollIntoView({ behavior: 'smooth' });
+                hasScrolledToJobSearch = true;
+            }
+        }
+
+
+        window.addEventListener('wheel', function (e) {
+            if (!hasScrolledToJobSearch && e.deltaY > 0) {
+                e.preventDefault();
+                scrollToJobSearch();
+            }
+        }, { passive: false });
+
+
+        function scrollToTopSection() {
+            const topSection = document.querySelector('.container');
+            if (topSection) {
+                topSection.scrollIntoView({ behavior: 'smooth' });
+                hasScrolledToJobSearch = false;
+            }
+        }
+
+
+        window.addEventListener('wheel', function (e) {
+            if (!hasScrolledToJobSearch && e.deltaY > 0) {
+                e.preventDefault();
+                scrollToJobSearch();
+            } else if (hasScrolledToJobSearch && e.deltaY < 0) {
+                e.preventDefault();
+                scrollToTopSection();
+            }
+        }, { passive: false });
+
+
+        const phrases = [
+            "Land Your Ideal Job",
+            "Build Your Dream Career",
+            "Discover Remote Opportunities",
+            "Explore Your Potential"
+        ];
+
+
+        const typingElement = document.getElementById("typing-text");
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 100;
+        const erasingSpeed = 60;
+        const delayBetweenPhrases = 1500;
+
+
+        function typeLoop() {
+            const currentPhrase = phrases[phraseIndex];
+            typingElement.textContent = currentPhrase.substring(0, charIndex);
+
+
+            if (!isDeleting) {
+                if (charIndex < currentPhrase.length) {
+                    charIndex++;
+                    setTimeout(typeLoop, typingSpeed);
+                } else {
+                    isDeleting = true;
+                    setTimeout(typeLoop, delayBetweenPhrases);
+                }
+            } else {
+                if (charIndex > 0) {
+                    charIndex--;
+                    setTimeout(typeLoop, erasingSpeed);
+                } else {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    setTimeout(typeLoop, 300);
+                }
+            }
+        }
+
+
+        window.addEventListener("DOMContentLoaded", typeLoop);
+    </script>
+
+
+
+
+</body>
+
+
+</html>
