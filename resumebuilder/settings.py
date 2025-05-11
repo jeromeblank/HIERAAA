@@ -175,3 +175,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SESSION_COOKIE_SECURE = True  
 CSRF_COOKIE_SECURE = True  
+SECURE_SSL_REDIRECT = True
+USE_X_FORWARDED_HOST = True
