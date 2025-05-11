@@ -5,9 +5,10 @@ from django.contrib import admin
 from django.urls import path, include
 from resume import views  
 from .views import resume_builder, download_pdf
+from .views import home_view
 
 urlpatterns = [
-    path('', views.home_view, name='home'),
+    path('', home_view, name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),  # allauth
     path('', views.landing_page, name='landing_page'),  # Landing page
