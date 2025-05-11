@@ -18,6 +18,10 @@ from django.utils import timezone
 import html
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.shortcuts import render
+
+def home_view(request):
+    return render(request, 'landing_page.html')
 
 # Configure Gemini API
 genai.configure(api_key='AIzaSyAPpH38le6nijps72DWZkfoZjP6ZUl-W_M')
@@ -229,8 +233,3 @@ def job_search(request):
     return render(request, 'job_results.html', {"jobs": jobs, "query": query})
 
 
-from django.shortcuts import redirect
-
-def home_view(request):
-    
-    return redirect('/')  # This could cause an infinite loop
