@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-wfc@0*r4--0@#fjfdp68)$2zgcpcaa_9%vt&@fss3(+t4vyu4h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://hirerayah.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
