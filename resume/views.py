@@ -229,3 +229,8 @@ def job_search(request):
     return render(request, 'job_results.html', {"jobs": jobs, "query": query})
 
 
+from django.shortcuts import redirect
+
+def home_view(request):
+    
+    return redirect('/')  # This could cause an infinite loop
