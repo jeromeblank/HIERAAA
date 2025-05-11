@@ -18,11 +18,8 @@ from django.utils import timezone
 import html
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.shortcuts import render
 
-def home_view(request):
-    return render(request, 'landing_page.html')
-    
+
 # Configure Gemini API
 genai.configure(api_key='AIzaSyAPpH38le6nijps72DWZkfoZjP6ZUl-W_M')
 JSEARCH_API_KEY = '8d3d20b8d2msh948c786dceb6e64p1bfe2ajsn9a656d9483a9'
