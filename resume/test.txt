@@ -12,41 +12,21 @@ import uuid
 import re
 import requests
 import google.generativeai as genai
-from django.core.files.base import ContentFile
-from .models import Resume
-from django.utils import timezone
-import html
-from django.core.exceptions import ValidationError
-from django.db import models
 
 
 # Configure Gemini API
 genai.configure(api_key='AIzaSyAPpH38le6nijps72DWZkfoZjP6ZUl-W_M')
-JSEARCH_API_KEY = '4c1dff1626mshb0cf712f1eef10ap121bb4jsnf0bda53c960a'
+JSEARCH_API_KEY = '8d3d20b8d2msh948c786dceb6e64p1bfe2ajsn9a656d9483a9'
 
-
-def sanitize_input(input_string):
-    # Remove special characters that could break the API prompt
-    sanitized = re.sub(r'[^\w\s,.-]', '', input_string)
-    # Convert HTML entities to their respective characters (if any)
-    sanitized = html.unescape(sanitized)
-    return sanitized
-
-def validate_image(image):
-    file_size = image.file.size
-    if file_size > 5 * 1024 * 1024:  # Limit file size to 5MB
-        raise ValidationError("File size too large")
-    return image
-
-class Profile(models.Model):
-    image = models.ImageField(upload_to='profile_pics/', validators=[validate_image])
 
 def generate_resume_content(form_data):
     def safe_get(field, default="N/A"):
         return form_data.get(field) or default
 
+
     prompt = f"""
     Generate a professional resume using clear headings and bullet points.
+
 
     Full Name: {safe_get('name')}
     Contact Information:
@@ -54,11 +34,14 @@ def generate_resume_content(form_data):
     - Email: {safe_get('email')}
     - Phone: {safe_get('phone')}
 
+
     Professional Summary:
     - Write a 5 sentence summary showcasing the candidate’s strengths.
 
+
     Skills:
     - Highlight 5 relevant skills (technical and soft).
+
 
     Education:
     - Degree: {safe_get('degree')}
@@ -67,20 +50,23 @@ def generate_resume_content(form_data):
     - GPA: {safe_get('gpa', 'Not specified')}
     - Relevant Coursework: {safe_get('relevant_coursework', 'Not provided')}
 
+
     Experience:
     - Job Title: {safe_get('job_title')}
     - Company: {safe_get('company_name')}
     - Location: {safe_get('job_location')}
     - Dates: {safe_get('job_dates')}
     - Responsibilities:
-    - {safe_get('responsibility_1', 'N/A')}
-    - {safe_get('responsibility_2', '')}
-    - {safe_get('responsibility_3', '')}
+      - {safe_get('responsibility_1', 'N/A')}
+      - {safe_get('responsibility_2', '')}
+      - {safe_get('responsibility_3', '')}
+
 
     Projects:
     - Title: {safe_get('project_title')}
     - Description: {safe_get('project_description')}
     - Technologies: {safe_get('project_tech')}
+
 
     Certifications & Awards:
     - Certification: {safe_get('certification_name')}
@@ -88,14 +74,17 @@ def generate_resume_content(form_data):
     - Date: {safe_get('certification_date')}
     - Award: {safe_get('award_name')}
 
+
     Extracurricular:
     - Activity: {safe_get('extracurricular')}
     - Description: {safe_get('extracurricular_description')}
     """
 
+
     model = genai.GenerativeModel('models/gemini-2.0-flash')
     response = model.generate_content(prompt)
     return response.text
+
 
 def resume_builder(request):
     if request.method == 'POST':
@@ -106,11 +95,13 @@ def resume_builder(request):
             request.session['resume_text'] = resume_text
             request.session['name'] = form_data.get('name', 'resume')
 
+
             if 'profile_picture' in request.FILES:
                 profile_picture = request.FILES['profile_picture']
                 request.session['profile_picture_path'] = save_temp_image(profile_picture)
             else:
                 request.session['profile_picture_path'] = None
+
 
             return render(request, 'resume/result.html', {
                 'resume_text': resume_text,
@@ -119,6 +110,7 @@ def resume_builder(request):
     else:
         form = ResumeForm()
     return render(request, 'resume/form.html', {'form': form})
+
 
 def save_temp_image(file):
     import uuid
@@ -130,33 +122,23 @@ def save_temp_image(file):
             destination.write(chunk)
     return path
 
+
 def download_pdf(request):
-    email = request.session.get('email') or request.user.email
     name = request.session.get('name', 'resume')
     resume_text = request.session.get('resume_text', '')
     profile_picture_path = request.session.get('profile_picture_path')
-
-    # Strip out preamble (recommendations, explanations, etc.)
-    resume_lines = resume_text.splitlines()
-
-    # Find the line that starts with the actual resume heading
-    start_index = 0
-    for i, line in enumerate(resume_lines):
-        if line.strip().lower().endswith("resume") and name.lower() in line.lower():
-            start_index = i
-            break
-
-    # Get only the relevant resume part
-    clean_resume_text = "\n".join(resume_lines[start_index:])
 
 
     buffer = BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=(595.27, 841.89), rightMargin=50, leftMargin=50, topMargin=50, bottomMargin=50)
 
+
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name='SectionHeader', fontSize=14, leading=16, spaceAfter=10, spaceBefore=12, textColor=colors.darkblue, alignment=TA_LEFT, fontName="Helvetica-Bold"))
 
+
     elements = []
+
 
     # Add profile picture if exists and is valid
     if profile_picture_path and os.path.exists(profile_picture_path):
@@ -168,10 +150,12 @@ def download_pdf(request):
         except Exception as e:
             print("Image load error:", e)
 
+
     elements.append(Paragraph(f"{name}'s Resume", styles['Title']))
     elements.append(Spacer(1, 12))
 
-    lines = clean_resume_text.split("\n")
+
+    lines = resume_text.split("\n")
     for line in lines:
         line = line.strip()
         if not line:
@@ -185,34 +169,19 @@ def download_pdf(request):
         else:
             elements.append(Paragraph(line, styles['BodyText']))
 
+
     doc.build(elements)
     buffer.seek(0)
 
-    # Clean up temp file
-    if profile_picture_path and os.path.exists(profile_picture_path):
-        os.remove(profile_picture_path)
-
-    # Save PDF to database
-    pdf_file = ContentFile(buffer.read())
-    pdf_file.name = f"{name}_resume.pdf"
-
-    # Save to Resume model
-    Resume.objects.create(
-        user=request.user,
-        name=name,
-        email=email,
-        created_at=timezone.now(),
-        resume_pdf=pdf_file
-    )
 
     # Clean up temp file
     if profile_picture_path and os.path.exists(profile_picture_path):
         os.remove(profile_picture_path)
 
-    # Return the file as a downloadable response
-    response = HttpResponse(pdf_file, content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="{pdf_file.name}"'
-    return response
+
+    return HttpResponse(buffer, content_type='application/pdf', headers={
+        'Content-Disposition': f'attachment; filename="{name}_resume.pdf"'
+    })
 
 
 
@@ -221,12 +190,16 @@ def landing_page(request):
     return render(request, 'landing_page.html')
 
 
+
+
 @login_required
 def job_search(request):
     query = request.GET.get('query')
     location = request.GET.get('location', '')
 
+
     url = "https://jsearch.p.rapidapi.com/search"
+
 
     params = {
         "query": f"{query} {location}",
@@ -234,14 +207,22 @@ def job_search(request):
         "num_pages": "1"
     }
 
+
     headers = {
         "X-RapidAPI-Key": "8d3d20b8d2msh948c786dceb6e64p1bfe2ajsn9a656d9483a9",  # replace with your actual key
         "X-RapidAPI-Host": "jsearch.p.rapidapi.com"
     }
 
+
     response = requests.get(url, headers=headers, params=params)
     jobs = response.json().get("data", []) if response.status_code == 200 else []
 
+
     return render(request, 'job_results.html', {"jobs": jobs, "query": query})
+
+
+
+
+
 
 
