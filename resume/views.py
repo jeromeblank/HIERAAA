@@ -136,6 +136,13 @@ def download_pdf(request):
     resume_text = request.session.get('resume_text', '')
     profile_picture_path = request.session.get('profile_picture_path')
 
+    # Remove unwanted introductory and important considerations text
+    intro_text = """Okay, here's a professional resume based on the information you provided..."""
+    considerations_text = """Important Considerations for a *Real* Resume: ..."""
+    
+    # Remove the introductory text and considerations
+    resume_text = resume_text.replace(intro_text, "").replace(considerations_text, "")
+
     buffer = BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=(595.27, 841.89), rightMargin=50, leftMargin=50, topMargin=50, bottomMargin=50)
 
@@ -199,6 +206,7 @@ def download_pdf(request):
     response = HttpResponse(pdf_file, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{pdf_file.name}"'
     return response
+
 
 
 
