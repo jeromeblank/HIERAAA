@@ -18,7 +18,7 @@ from django.utils import timezone
 import html
 from django.core.exceptions import ValidationError
 from django.db import models
-import re
+
 
 # Configure Gemini API
 genai.configure(api_key='AIzaSyAPpH38le6nijps72DWZkfoZjP6ZUl-W_M')
@@ -129,21 +129,6 @@ def save_temp_image(file):
         for chunk in file.chunks():
             destination.write(chunk)
     return path
-
-
-def clean_resume(text):
-    # Remove AI-generated notes and recommendations
-    patterns_to_remove = [
-        r"Okay, I'll generate a professional resume.*?highlight[s]? transferable skills\.",  
-        r"This revised resume is a starting point.*?targeting\.",                            
-        r"Consider whether it's best to leave it off the resume entirely\.",                
-        r"Important Considerations & Next Steps:.*",                                        
-    ]
-
-    for pattern in patterns_to_remove:
-        text = re.sub(pattern, '', text, flags=re.DOTALL | re.IGNORECASE)
-
-    return text.strip()
 
 def download_pdf(request):
     email = request.session.get('email') or request.user.email
