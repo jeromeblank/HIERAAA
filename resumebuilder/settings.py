@@ -170,7 +170,16 @@ SOCIALACCOUNT_PROVIDERS = {
         },
         'AUTH_PARAMS': {
             'redirect_uri': 'https://hirerayah.onrender.com/accounts/github/login/callback/'
-        }
+        },
+        "SCOPE": [
+            "user",
+            "user:email"
+        ],
+        "FIELDS": [
+            "email",
+            "name",
+            "login"
+        ]
     }
 }
 
@@ -186,4 +195,6 @@ CSRF_TRUSTED_ORIGINS = [
     'https://hirerayah.onrender.com',
 ]
 
-
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "optional"  # Or "mandatory" if you want
+SOCIALACCOUNT_QUERY_EMAIL = True
