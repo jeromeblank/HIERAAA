@@ -171,11 +171,11 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'redirect_uri': 'https://hirerayah.onrender.com/accounts/github/login/callback/'
         },
+
         "SCOPE": [
             "user",
             "user:email"
         ],
-        'VERIFIED_EMAIL': False, 
         "FIELDS": [
             "email",
             "name",
@@ -196,15 +196,17 @@ CSRF_TRUSTED_ORIGINS = [
     'https://hirerayah.onrender.com',
 ]
 
-ACCOUNT_SIGNUP_FIELDS = ["username*", "password1*", "password2*"]
-ACCOUNT_EMAIL_VERIFICATION = "optional"
-SOCIALACCOUNT_QUERY_EMAIL = True
-SOCIALACCOUNT_EMAIL_REQUIRED = True
-SOCIALACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_SIGNUP_FIELDS = ['username*', 'password1*', 'password2*']
+SOCIALACCOUNT_EMAIL_REQUIRED = False
+SOCIALACCOUNT_QUERY_EMAIL = False
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
-SOCIALACCOUNT_ADAPTER = 'resume.adapters.NoEmailGithubAdapter'
+SOCIALACCOUNT_ADAPTER = "allauth.socialaccount.adapter.DefaultSocialAccountAdapter"
+ACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+
 
 LOGGING = {
     'version': 1,
