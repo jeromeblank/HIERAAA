@@ -168,9 +168,6 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret': '5175f40f6d5328ebb7fb0e285eeb74ae67319959',
             'key': ''
         },
-        'AUTH_PARAMS': {
-            'redirect_uri': 'https://hirerayah.onrender.com/accounts/github/login/callback/'
-        },
         "SCOPE": [
             "user",
             "user:email"
@@ -195,26 +192,33 @@ CSRF_TRUSTED_ORIGINS = [
     'https://hirerayah.onrender.com',
 ]
 
-ACCOUNT_SIGNUP_FIELDS = ["email*", "username*", "password1*", "password2*"]
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_SIGNUP_FIELDS = ["username*", "password1*", "password2*"]
+ACCOUNT_EMAIL_VERIFICATION = "optional"
 SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_EMAIL_VERIFICATION = "optional"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "allauth.socialaccount.adapter.DefaultSocialAccountAdapter"
 
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
         },
     },
-    "loggers": {
-        "allauth": {
-            "handlers": ["console"],
-            "level": "DEBUG",
+    'loggers': {
+        'social': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
         },
-        "django.request": {
-            "handlers": ["console"],
-            "level": "DEBUG",
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
         },
     },
 }
+
