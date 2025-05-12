@@ -168,6 +168,9 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret': '5175f40f6d5328ebb7fb0e285eeb74ae67319959',
             'key': ''
         },
+        'AUTH_PARAMS': {
+            'redirect_uri': 'https://hirerayah.onrender.com/accounts/github/login/callback/'
+        },
         "SCOPE": [
             "user",
             "user:email"
