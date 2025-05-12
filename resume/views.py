@@ -22,7 +22,8 @@ from django.db import models
 
 # Configure Gemini API
 genai.configure(api_key='AIzaSyAPpH38le6nijps72DWZkfoZjP6ZUl-W_M')
-JSEARCH_API_KEY = '8d3d20b8d2msh948c786dceb6e64p1bfe2ajsn9a656d9483a9'
+JSEARCH_API_KEY = '4c1dff1626mshb0cf712f1eef10ap121bb4jsnf0bda53c960a'
+
 
 def sanitize_input(input_string):
     # Remove special characters that could break the API prompt
