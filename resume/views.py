@@ -143,6 +143,9 @@ def download_pdf(request):
     # Remove the introductory text and considerations
     resume_text = resume_text.replace(intro_text, "").replace(considerations_text, "")
     resume_text = re.split(r"(?i)key improvements and considerations", resume_text)[0].strip()
+    match = re.search(r'(.*?Extracurricular Activities.*?)($|\n[A-Z].*)', resume_text, re.DOTALL)
+    if match:
+        resume_text = match.group(1).strip()
 
     buffer = BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=(595.27, 841.89), rightMargin=50, leftMargin=50, topMargin=50, bottomMargin=50)
