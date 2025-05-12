@@ -179,3 +179,8 @@ SECURE_SSL_REDIRECT = True
 USE_X_FORWARDED_HOST = True
 SECURE_SSL_REDIRECT = False if DEBUG else True
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://hirerayah.onrender.com',
+]
+
+
