@@ -164,9 +164,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
         'APP': {
-            'client_id': 'Ov23liftRXBWgHSG97gI',
-            'secret': '5175f40f6d5328ebb7fb0e285eeb74ae67319959',
+            'client_id': 'YOUR_CLIENT_ID',
+            'secret': 'YOUR_CLIENT_SECRET',
             'key': ''
+        },
+        'AUTH_PARAMS': {
+            'redirect_uri': 'https://hirerayah.onrender.com/accounts/github/login/callback/'
         }
     }
 }
