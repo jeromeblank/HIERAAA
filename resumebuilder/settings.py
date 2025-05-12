@@ -164,8 +164,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
         'APP': {
-            'client_id': 'YOUR_CLIENT_ID',
-            'secret': 'YOUR_CLIENT_SECRET',
+            'client_id': 'Ov23liftRXBWgHSG97gI',
+            'secret': '5175f40f6d5328ebb7fb0e285eeb74ae67319959',
             'key': ''
         },
         'AUTH_PARAMS': {
