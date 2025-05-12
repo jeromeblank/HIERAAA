@@ -18,7 +18,7 @@ from django.utils import timezone
 import html
 from django.core.exceptions import ValidationError
 from django.db import models
-
+import re
 
 # Configure Gemini API
 genai.configure(api_key='AIzaSyAPpH38le6nijps72DWZkfoZjP6ZUl-W_M')
@@ -130,25 +130,26 @@ def save_temp_image(file):
             destination.write(chunk)
     return path
 
+
+def clean_resume(text):
+    # Remove AI-generated notes and recommendations
+    patterns_to_remove = [
+        r"Okay, I'll generate a professional resume.*?highlight[s]? transferable skills\.",  
+        r"This revised resume is a starting point.*?targeting\.",                            
+        r"Consider whether it's best to leave it off the resume entirely\.",                
+        r"Important Considerations & Next Steps:.*",                                        
+    ]
+
+    for pattern in patterns_to_remove:
+        text = re.sub(pattern, '', text, flags=re.DOTALL | re.IGNORECASE)
+
+    return text.strip()
+
 def download_pdf(request):
     email = request.session.get('email') or request.user.email
     name = request.session.get('name', 'resume')
     resume_text = request.session.get('resume_text', '')
     profile_picture_path = request.session.get('profile_picture_path')
-
-    # Strip out preamble (recommendations, explanations, etc.)
-    resume_lines = resume_text.splitlines()
-
-    # Find the line that starts with the actual resume heading
-    start_index = 0
-    for i, line in enumerate(resume_lines):
-        if line.strip().lower().endswith("resume") and name.lower() in line.lower():
-            start_index = i
-            break
-
-    # Get only the relevant resume part
-    clean_resume_text = "\n".join(resume_lines[start_index:])
-
 
     buffer = BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=(595.27, 841.89), rightMargin=50, leftMargin=50, topMargin=50, bottomMargin=50)
@@ -171,7 +172,7 @@ def download_pdf(request):
     elements.append(Paragraph(f"{name}'s Resume", styles['Title']))
     elements.append(Spacer(1, 12))
 
-    lines = clean_resume_text.split("\n")
+    lines = resume_text.split("\n")
     for line in lines:
         line = line.strip()
         if not line:
