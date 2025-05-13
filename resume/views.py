@@ -18,23 +18,27 @@ from django.utils import timezone
 import html
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.html import escape
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 
-
-# Configure Gemini API
-genai.configure(api_key='AIzaSyAPpH38le6nijps72DWZkfoZjP6ZUl-W_M')
-JSEARCH_API_KEY = '4c1dff1626mshb0cf712f1eef10ap121bb4jsnf0bda53c960a'
-
+# Configure Gemini API using the API key from the environment
+genai.configure(api_key=settings.GENAI_API_KEY)
+JSEARCH_API_KEY = settings.JSEARCH_API_KEY
 
 def sanitize_input(input_string):
-    # Remove special characters that could break the API prompt
-    sanitized = re.sub(r'[^\w\s,.-]', '', input_string)
-    # Convert HTML entities to their respective characters (if any)
-    sanitized = html.unescape(sanitized)
+    # Escape special characters in HTML
+    sanitized = escape(input_string)
+    # Further sanitization to remove potentially harmful characters
+    sanitized = re.sub(r'[^\w\s,.-]', '', sanitized)
     return sanitized
 
 def validate_image(image):
+    allowed_types = ['image/jpeg', 'image/png', 'image/gif']
+    if image.content_type not in allowed_types:
+        raise ValidationError("Invalid image format")
     file_size = image.file.size
-    if file_size > 5 * 1024 * 1024:  # Limit file size to 5MB
+    if file_size > 5 * 1024 * 1024:  # 5MB limit
         raise ValidationError("File size too large")
     return image
 
