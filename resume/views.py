@@ -23,7 +23,7 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
 # Configure Gemini API using the API key from the environment
-genai.configure(api_key=settings.GENAI_API_KEY)
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 JSEARCH_API_KEY = settings.JSEARCH_API_KEY
 
 def sanitize_input(input_string):

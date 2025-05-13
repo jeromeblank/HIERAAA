@@ -188,11 +188,10 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 import environ
+import os
 
-# Initialize environ
 env = environ.Env()
-# Read the .env file
-environ.Env.read_env()
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Now you can access your environment variables securely
 GENAI_API_KEY = env('GENAI_API_KEY')
