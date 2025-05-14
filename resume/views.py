@@ -234,7 +234,7 @@ def job_search(request):
     }
 
     headers = {
-        "X-RapidAPI-Key": "8d3d20b8d2msh948c786dceb6e64p1bfe2ajsn9a656d9483a9",  # replace with your actual key
+        "X-RapidAPI-Key": "4c1dff1626mshb0cf712f1eef10ap121bb4jsnf0bda53c960a",  # replace with your actual key
         "X-RapidAPI-Host": "jsearch.p.rapidapi.com"
     }
 
