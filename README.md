@@ -123,11 +123,48 @@ To deploy the application:
 Below are some commonly used dependencies. Your actual `requirements.txt` should be generated using:
 
 ```bash
-pip freeze > requirements.txt
-Django==5.2
-python-decouple
-django-allauth
-requests
+﻿annotated-types==0.7.0
+asgiref==3.8.1
+cachetools==5.5.2
+certifi==2025.4.26
+chardet==5.2.0
+charset-normalizer==3.4.2
+colorama==0.4.6
+dj-database-url==2.3.0
+Django==5.2.1
+django-allauth==65.8.0
+google-ai-generativelanguage==0.6.15
+google-api-core==2.24.2
+google-api-python-client==2.169.0
+google-auth==2.40.1
+google-auth-httplib2==0.2.0
+google-generativeai==0.8.5
+googleapis-common-protos==1.70.0
+grpcio==1.71.0
+grpcio-status==1.71.0
+httplib2==0.22.0
+idna==3.10
+pillow==11.2.1
+proto-plus==1.26.1
+protobuf==5.29.4
+psycopg2-binary==2.9.10
+pyasn1==0.6.1
+pyasn1_modules==0.4.2
+pydantic==2.11.4
+pydantic_core==2.33.2
+pyparsing==3.2.3
+python-dotenv==1.1.0
+reportlab==4.4.0
+requests==2.32.3
+rsa==4.9.1
+sqlparse==0.5.3
+tqdm==4.67.1
+typing-inspection==0.4.0
+typing_extensions==4.13.2
+tzdata==2025.2
+uritemplate==4.1.1
+urllib3==2.4.0
+django-environ==0.12.0
 ```
 License
 MIT License
