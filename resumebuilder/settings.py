@@ -32,8 +32,7 @@ SECRET_KEY = 'django-insecure-wfc@0*r4--0@#fjfdp68)$2zgcpcaa_9%vt&@fss3(+t4vyu4h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['hirerayah.onrender.com']
 
 # Application definition
 
@@ -164,13 +163,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
         'APP': {
-            'client_id': 'Ov23liftRXBWgHSG97gI',
-            'secret': '5175f40f6d5328ebb7fb0e285eeb74ae67319959',
+            'client_id': 'Ov23lieno4zA8V4I4koS',
+            'secret': 'a853a76508b6c4175a26ddd9f1a54f24f728408f',
             'key': ''
         },
-        'AUTH_PARAMS': {
-            'redirect_uri': 'https://hirerayah.onrender.com/accounts/github/login/callback/'
-        }
     }
 }
 
