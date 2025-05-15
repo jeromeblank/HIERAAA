@@ -22,4 +22,4 @@ class ResumeForm(forms.Form):
     award_name = forms.CharField(max_length=100, required=False)
     extracurricular = forms.CharField(max_length=100)
     extracurricular_description = forms.CharField(widget=forms.Textarea)
-    profile_picture = forms.ImageField(required=False) 
+    #profile_picture = forms.ImageField(required=False) 
