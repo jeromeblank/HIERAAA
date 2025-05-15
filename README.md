@@ -120,8 +120,6 @@ To deploy the application:
 
 ## requirements.txt
 
-Below are some commonly used dependencies. Your actual `requirements.txt` should be generated using:
-
 ```bash
 ﻿annotated-types==0.7.0
 asgiref==3.8.1
