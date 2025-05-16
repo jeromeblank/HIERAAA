@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from resume import views  
+from django.contrib.auth import views as auth_views
 from resume.views import resume_builder, download_pdf
 
 urlpatterns = [
