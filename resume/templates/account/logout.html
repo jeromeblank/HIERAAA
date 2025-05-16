@@ -1,0 +1,271 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Out - Hirerayah</title>
+    <link rel="icon" href="{% static 'images/logo1.png' %}" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Lexend', sans-serif;
+            position: relative;
+        }
+
+
+        #animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+
+
+        /* Main content styles */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 10%;
+            color: #333;
+        }
+
+
+        div {
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+
+
+        strong {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+
+        li {
+            margin-bottom: 10px;
+        }
+
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+
+        h1 {
+            font-size: 2em;
+            margin-top: 0;
+        }
+
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+
+        button:hover {
+            background-color: #218838;
+        }
+
+
+        .card {
+            background-color: #FFE1E0;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 420px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            backdrop-filter: blur(8px);
+        }
+
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.6em;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        .settings-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+
+        .settings-list li {
+            margin-bottom: 12px;
+        }
+
+
+        .settings-list a {
+            text-decoration: none;
+            color: #3f75b7;
+            font-weight: 500;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+
+        .settings-list a:hover {
+            color: #E55050;
+        }
+
+
+        .signout-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+
+        .signout-btn:hover {
+            background-color: #E55050;
+        }
+
+
+        i.fas {
+            font-size: 1em;
+        }
+
+
+        .logo-fixed {
+            position: fixed;
+            top: 50%;
+            left: 56%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 450px;
+            height: auto;
+            opacity: 0.95;
+            pointer-events: none;
+            background: none;
+            border: none;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- Animated SVG Background -->
+    <svg id="animated-bg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <defs>
+            <radialGradient id="Gradient1" cx="50%" cy="50%" fx="10%" fy="50%" r=".5">
+                <animate attributeName="fx" dur="34s" values="0%;10%;0%" repeatCount="indefinite" />
+                <stop offset="0%" stop-color="#833AB4" />
+                <stop offset="100%" stop-color="#833AB400" />
+            </radialGradient>
+            <radialGradient id="Gradient2" cx="50%" cy="50%" fx="10%" fy="50%" r=".5">
+                <animate attributeName="fx" dur="23.5s" values="0%;10%;0%" repeatCount="indefinite" />
+                <stop offset="0%" stop-color="#FD1D1D" />
+                <stop offset="100%" stop-color="#FD1D1D00" />
+            </radialGradient>
+            <radialGradient id="Gradient3" cx="50%" cy="50%" fx="50%" fy="50%" r=".5">
+                <animate attributeName="fx" dur="21.5s" values="0%;10%;0%" repeatCount="indefinite" />
+                <stop offset="0%" stop-color="#4582FC" />
+                <stop offset="100%" stop-color="#4582FC00" />
+            </radialGradient>
+
+
+        </defs>
+
+
+        <rect x="0" y="0" width="100%" height="100%" fill="url(#Gradient1)">
+            <animate attributeName="x" dur="20s" values="25%;0%;25%" repeatCount="indefinite" />
+            <animate attributeName="y" dur="21s" values="0%;25%;0%" repeatCount="indefinite" />
+            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="17s"
+                repeatCount="indefinite" />
+        </rect>
+        <rect x="0" y="0" width="100%" height="100%" fill="url(#Gradient2)">
+            <animate attributeName="x" dur="23s" values="-25%;0%;-25%" repeatCount="indefinite" />
+            <animate attributeName="y" dur="24s" values="0%;50%;0%" repeatCount="indefinite" />
+            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="18s"
+                repeatCount="indefinite" />
+        </rect>
+        <rect x="0" y="0" width="100%" height="100%" fill="url(#Gradient3)">
+            <animate attributeName="x" dur="25s" values="0%;25%;0%" repeatCount="indefinite" />
+            <animate attributeName="y" dur="26s" values="0%;25%;0%" repeatCount="indefinite" />
+            <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="19s"
+                repeatCount="indefinite" />
+        </rect>
+    </svg>
+
+
+    <!-- Main Content Container -->
+    <div class="card">
+        <h2><i class="fas fa-envelope"></i> Account Settings</h2>
+        <ul class="settings-list">
+            <li><a href="/accounts/email/"><i class="fas fa-edit"></i> Change Email</a></li>
+            <li><a href="/accounts/password/change/"><i class="fas fa-lock"></i> Change Password</a></li>
+            <li><a href="/accounts/3rdparty/"><i class="fas fa-link"></i> Account Connections</a></li>
+        </ul>
+    </div>
+
+
+    <div class="card">
+        <h2><i class="fas fa-sign-out-alt"></i> Sign Out</h2>
+        <p>Are you sure you want to sign out of your account?</p>
+
+
+        <form method="post" action="/accounts/logout/">
+            {% csrf_token %}
+            <button type="submit" class="signout-btn">Sign Out</button>
+        </form>
+    </div>
+
+
+    <img class="logo-fixed" src="{% static 'images/hirerayah-logo.png' %}" alt="Hirerayah Logo">
+
+
+</body>
+
+
+</html>
